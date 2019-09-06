@@ -1,0 +1,153 @@
+SQL> select * from student;
+
+    ROLLNO NAME                 ADDRESS         PHONE        AGE
+---------- -------------------- ---------- ---------- ----------
+         1 karun                kottayam     98456546         20
+         2 kiran                palakkad     56456416         23
+         3 thomas               pala        354646436         16
+         4 rachel               thrissur     15631351         17
+         5 gokul                thiruvalla   35435436         10
+         6 mathew               trivandrum    4564654         50
+         7 jim                  kannur        4544564         70
+         8 rohit                ernakulam     3456451         32
+         9 gauthm               alaphuza       212212         32
+        10 smk                  kozhikode   351435641         28
+
+
+SQL> desc student_course;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ COURSE_ID                                          NUMBER(38)
+ ROLL_NO                                            NUMBER(38)
+
+SQL> select s1.name,s1.age,s2.course_id from student s1 inner join student_course s2 on s1.rollno = s2.roll_no;
+
+NAME                        AGE  COURSE_ID
+-------------------- ---------- ----------
+karun                        20          1
+kiran                        23          2
+thomas                       16          3
+rachel                       17          4
+gokul                        10          5
+mathew                       50          6
+jim                          70          7
+rohit                        32          8
+gauthm                       32          9
+
+9 rows selected.
+
+SQL> delete from student_course;
+
+9 rows deleted.
+
+SQL> insert into student_course values(1,1);
+
+1 row created.
+
+SQL> insert into student_course values(1,2);
+
+1 row created.
+
+SQL> insert into student_course values(3,3);
+
+1 row created.
+
+SQL> insert into student_course values(2,4);
+
+1 row created.
+
+SQL> insert into student_course values(2,5);
+
+1 row created.
+
+SQL> insert into student_course values(3,6);
+
+1 row created.
+
+SQL> insert into student_course values(3,7);
+
+1 row created.
+
+SQL> insert into student_course values(4,8);
+
+1 row created.
+
+SQL> select s1.name , s1.age , s2.roll_no from student s1 left join student_course s2 on s1.rollno = s2.roll_no
+  2  ;
+
+NAME                        AGE    ROLL_NO
+-------------------- ---------- ----------
+karun                        20          1
+kiran                        23          2
+thomas                       16          3
+rachel                       17          4
+gokul                        10          5
+mathew                       50          6
+jim                          70          7
+rohit                        32          8
+smk                          28
+gauthm                       32
+
+10 rows selected.
+
+SQL> insert into student_course values(4,12);
+
+1 row created.
+
+SQL> select s1.name , s1.age , s2.roll_no from student s1 right join student_course s2 on s1.rollno = s2.roll_no
+  2  ;
+
+NAME                        AGE    ROLL_NO
+-------------------- ---------- ----------
+karun                        20          1
+kiran                        23          2
+thomas                       16          3
+rachel                       17          4
+gokul                        10          5
+mathew                       50          6
+jim                          70          7
+rohit                        32          8
+                                        12
+
+9 rows selected.
+
+SQL> select s1.name , s1.age , s2.roll_no from student s1 full join student_course s2 on s1.rollno = s2.roll_no;
+
+NAME                        AGE    ROLL_NO
+-------------------- ---------- ----------
+karun                        20          1
+kiran                        23          2
+thomas                       16          3
+rachel                       17          4
+gokul                        10          5
+mathew                       50          6
+jim                          70          7
+rohit                        32          8
+smk                          28
+gauthm                       32
+                                        12
+
+11 rows selected.
+
+
+SQL> create view studentview as select name rollno from student;
+
+View created.
+
+
+SQL> select * from studentview;
+
+ROLLNO
+--------------------
+karun
+kiran
+thomas
+rachel
+gokul
+mathew
+jim
+rohit
+gauthm
+smk
+
+10 rows selected.
